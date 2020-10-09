@@ -1,24 +1,43 @@
-# README
+## userテーブル
+| Colum              | Type     | Option      |
+|--------------------|----------|-------------|
+| name               |string    | null: false |
+| email              |string    | null: false |
+| password           |string    | null: false |
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+### Association
+has_many: room_user
+has_many: room, through: room_users
+has_many: message
 
-Things you may want to cover:
+## memoテーブル
+| Colum       | Type     | Option          |
+|-------------|----------|-----------------|
+|name         |string    | null: false     |
 
-* Ruby version
+### Association
+belongs_to: user
+has_many: content
 
-* System dependencies
 
-* Configuration
+## memo_users テーブル
+｜Colum   | Type       | Option                            |
+|---------|------------|-----------------------------------|
+| user_id | references | null: false, foreign_key: true    |
+| room_id | references  | null: false, foreign_key: true   |
 
-* Database creation
+### Association
 
-* Database initialization
+belongs_to :user
+belongs_to :memo
 
-* How to run the test suite
+## contentテーブル
+| Colum   | Type     | Option                         |
+|-------- |----------|--------------------------------|
+| user_id | integer  | null: false, foreign_key: true |
+| room_id | integer  | null: false, foreign_key: true |
+| content | string   | null: false,                   |
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+### Association
+belongs_to: user
+belongs_to: memo
